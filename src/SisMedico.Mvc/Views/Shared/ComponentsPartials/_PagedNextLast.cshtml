@@ -1,0 +1,8 @@
+﻿@model SisMedico.Domain.Entities.IPagedList
+
+<li class="page-item @Model.ClassDisabledNext">
+    <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pi="@Model.Proximo" asp-route-ps="@Model.PageSize" asp-route-q="@Model.Query" asp-route-selectedValue="@Model.SelectedValue" aria-disabled="@Model.SemProximo">>> </a>
+</li>
+<li class="page-item @Model.ClassDisabledNext">
+    <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pi="@Model.TotalPages" asp-route-ps="@Model.PageSize" asp-route-q="@Model.Query" asp-route-selectedValue="@Model.SelectedValue" aria-disabled="@Model.SemProximo">Último </a>
+</li>

@@ -1,0 +1,70 @@
+﻿@using SisMedico.Domain.Entities
+@model PagedResult<Cid>
+
+
+@{
+    ViewData ["Title"] = "Listagem de Cid";
+    ViewData ["PageName"] = "cids-paginada";
+    ViewData ["Category1"] = "Cid";
+    ViewData ["Heading"] = "<i class='subheader-icon fal fa-table'></i> Listagem de Cid";
+    ViewData ["PageDescription"] = "Exporte os dados da lista.";
+}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-brands.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+}
+
+<div id="panel-1" class="panel">
+    <div class="panel-hdr">
+        <h2>
+            <a asp-controller="Cid" asp-action="Create"
+               class="btn btn-outline-info btn-sm">Adicionar nova Cid &nbsp;&nbsp;<i class="ni ni-plus"></i></a>&nbsp;&nbsp;
+
+            <button type="button" class="btn btn-outline-warning btn-sm"
+                    data-toggle="modal"
+                    data-target=".default-example-modal-right-lg-historico-detalhe">
+                Pendências para Desenvolver
+            </button>&nbsp;&nbsp;
+
+            <button type="button" class="btn btn-outline-danger btn-sm"
+                    data-toggle="modal"
+                    data-target=".default-example-modal-right-lg-historico-detalhe">
+                Pendências para Desenvolver
+            </button>
+
+
+        </h2>
+        <div class="panel-toolbar">
+
+            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+                    data-offset="0,10" data-original-title="Collapse"></button>
+
+            <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                    data-offset="0,10" data-original-title="Fullscreen"></button>
+
+            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip"
+                    data-offset="0,10" data-original-title="Close"></button>
+
+        </div>
+    </div>
+
+    <div class="panel-container show">
+        <div class="panel-content">
+
+            <partial name="PartialViews/_listacid" />
+
+        </div>
+    </div>
+
+</div>
+
+
+<partial name="PartialViews/_HistoricoPaciente" />
+<partial name="PartialViews/_Prontuario" />
+
+@section ScriptsBlock {
+    <partial name="PartialViews/_ScriptDataTables" />
+    @* .dt-basic-srmartadmin *@
+}

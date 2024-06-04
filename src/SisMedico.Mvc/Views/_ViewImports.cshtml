@@ -1,0 +1,11 @@
+﻿@using SisMedico.Mvc
+@using SisMedico.Mvc.Extensions
+@using SisMedico.Mvc.Models
+@using SisMedico.Mvc.Extensions.Custom
+
+@inject SmartSettings Settings
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, SisMedico.Mvc
+
+@inject SisMedico.Domain.Interfaces.IUserInContext _userInContext
+@inject StyleButtom SettingsBtn

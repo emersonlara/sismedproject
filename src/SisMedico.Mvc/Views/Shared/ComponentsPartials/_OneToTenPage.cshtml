@@ -1,0 +1,15 @@
+﻿@model SisMedico.Domain.Entities.IPagedList
+
+@for (var i = 1; i <= Model.MaxPageShowOrTotalPage; i++)
+{
+    if (i == Model.PageIndex)
+    {
+        <li class="page-item active">
+            <a href="#" class="page-link" style="cursor: default">@i <span class="sr-only">(current)</span></a>
+        </li>
+    }
+    else
+    {
+        <li class="page-item"><a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pi="@i" asp-route-ps="@Model.PageSize" asp-route-q="@Model.Query" asp-route-selectedValue="@Model.SelectedValue">@i</a></li>
+    }
+}

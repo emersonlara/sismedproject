@@ -1,0 +1,1 @@
+﻿update AgendaEventos set Color = '#00BFFF' where Color = '#30415F';

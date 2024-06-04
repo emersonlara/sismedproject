@@ -1,0 +1,30 @@
+﻿@model SisMedico.Domain.Entities.IPagedList
+
+<div class="container">
+    <div class="row">
+        <nav>
+            <ul class="pagination justify-content-center">
+
+
+                    <partial name="ComponentsPartials/_PagedPreviousFirst" model="Model" />
+
+                @{
+                    if (Model.PageIndex < Model.MaxPageShowOrTotalPage)
+                    {
+                        <partial name="ComponentsPartials/_OneToTenPage" model="Model" />
+                    }
+                    else
+                    {
+                        <partial name="ComponentsPartials/_GreatThanTenPage" model="Model" />
+                    }
+                }
+
+                <partial name="ComponentsPartials/_PagedNextLast" model="Model" />
+
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <partial name="ComponentsPartials/_PagedDescription" model="Model" />
+    </div>
+</div>

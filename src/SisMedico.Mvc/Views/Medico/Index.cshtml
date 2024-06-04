@@ -1,0 +1,124 @@
+﻿
+@using SisMedico.Domain.Extensions
+@using SisMedico.Mvc.ViewModels.Medico
+@model IEnumerable<MedicoViewModel>
+
+@{
+    ViewData ["Title"] = "Lista de Medicos";
+    ViewData ["PageName"] = "medico_index";
+    ViewData ["Category1"] = "Medico";
+    ViewData ["Heading"] = "<i class='subheader-icon fal fa-table'></i> Medicos: <span class='fw-300'>Lista</span> <sup class='badge badge-primary fw-500'>new feature by: SisMedico</sup>";
+    ViewData ["PageDescription"] = "Busca facilitada no cabecalho da tabela, ornacao e paginacao sem qualquer complexidade de configuracao";
+}
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    <a asp-controller="Medico" asp-action="Create"
+                       class="btn btn-outline-primary btn-sm">Novo Paciente</a>&nbsp;&nbsp;
+
+                    <button type="button" class="btn btn-outline-success btn-sm"
+                            data-toggle="modal"
+                            data-target=".default-example-modal-right-prontuario">
+                        Prontuários
+                    </button>&nbsp;&nbsp;
+
+                    <button type="button" class="btn btn-outline-info btn-sm"
+                            data-toggle="modal"
+                            data-target=".default-example-modal-right-historico">
+                        Histórico
+                    </button>
+                </h2>
+
+                <h2>
+                    Lista de Medicos <span class="fw-300"><i>com filtros</i></span>
+                </h2>
+
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="panel-tag">
+                        Lista de Medicos com a abordagem de filtros em todas as colunas. Esta feature e mais uma das inovacoes do SisMedico v6+.
+                    </div>
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                        <thead class="bg-highlight">
+                            <tr>
+                                <th>Nome</th>
+                                <th>CRM</th>
+                                <th>Data de Nascimento</th>
+                                <th>Especialidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Crm)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DataNascimento)</td>
+
+                                    <td>
+                                        <ul>
+                                            @foreach (var descricao in item.EspecialidadesDescricoes)
+                                            {
+                                                <li>@descricao</li>
+                                            }
+                                        </ul>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock {
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+
+@* 
+    <script>
+        $('form').submit(function () {
+            var selectedValues = [];
+            $('#Especialidades option:selected').each(function () {
+                selectedValues.push($(this).val());
+            });
+            $('#especialidadesSelecionadas').val(selectedValues);
+        });
+    </script> *@
+
+    <script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
+            $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+            var table = $('#dt-basic-example').DataTable({
+                //responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+            });
+        });
+    </script>
+}

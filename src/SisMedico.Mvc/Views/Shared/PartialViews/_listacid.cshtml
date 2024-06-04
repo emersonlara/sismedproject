@@ -1,0 +1,111 @@
+﻿@using SisMedico.Domain.Entities
+@model PagedResult<Cid>
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="border-faded bg-faded p-3 mb-g d-flex">
+
+            <form method="get" asp-controller="Cid" asp-action="CidsPaginada" class="search">
+                <div class="input-group w-200">
+                    <input type="text" id="q" name="q" class="form-control shadow-inset-2 form-control-lg" value="@ViewBag.Pesquisa" placeholder="O que você está procurando?">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="ni ni-magnifier"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row" style="margin: 0px 2px 2px 2px;">
+
+    @{
+        if (Model.Data.Any())
+        {
+
+            <table id="myTableCid" class="table table-striped table-bordered" style="width:100%" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            ID Interno
+                        </th>
+                        <th>
+                            Código
+                        </th>
+                        <th>
+                            Diagnóstico
+                        </th>
+                        <th class="text-center">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data.OrderBy(p => p.Codigo))
+                    {
+                        <tr>
+                            <td>
+                                @item.CidInternalId
+                            </td>
+                            <td>
+                                @item.Codigo
+                            </td>
+                            <td>
+                                @item.Diagnostico
+                            </td>
+                            <td class="text-center">
+
+                                <button class="btn btn-default details"
+                                        data-id="@item.Id" data-toggle="tooltip" data-placement="bottom"
+                                        title="Detalhes da Cid" data-original-title="Detalhes da Cid">
+                                    <i class="glyphicon glyphicon-file"></i>
+                                </button>
+
+                                <button class="btn btn-danger delete"
+                                        data-id="@item.Id" data-toggle="tooltip" data-placement="bottom"
+                                        title="Excluir CID" data-original-title="Excluir CID">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+
+                                <button class="btn btn-primary edit"
+                                        data-id="@item.Id" data-toggle="tooltip" data-placement="bottom"
+                                        title="Editar CID" data-original-title="Editar CID">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>ID Interno</th>
+                        <th>Código</th>
+                        <th>Diagnóstico</th>
+                        <th class="text-center">Ação</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+            <hr />
+
+            @if (Model.TotalPages > 0)
+            {
+                <div style="text-align:center;">
+                    <vc:paginacao modelo-paginado="@Model"></vc:paginacao>
+                </div>
+            }
+
+        } else
+        {
+            <div class="row" style="text-align=center;">
+                <h2>Não há Registros Cadastrados!</h2>
+            </div>
+        }
+    }
+</div>
